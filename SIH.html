@@ -1,0 +1,2136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vagabond Navigators | Explore. Plan. Experience.</title>
+
+  <style>
+    :root {
+      --primary: #5b35d5;
+      --primary-dark: #3f22a6;
+      --secondary: #f4f1ff;
+      --accent: #ffb703;
+      --text: #202124;
+      --muted: #6b7280;
+      --background: #f8f9fc;
+      --white: #ffffff;
+      --border: #e5e7eb;
+      --success: #16803c;
+      --danger: #d62828;
+      --shadow: 0 12px 30px rgba(37, 30, 80, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 35px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      transition: 0.25s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--secondary);
+    }
+
+    .btn-light {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-small {
+      padding: 8px 13px;
+      font-size: 0.85rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Navigation */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-content {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary);
+      font-weight: 900;
+      font-size: 1.25rem;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), #8b6cf0);
+      font-size: 1.3rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+    }
+
+    /* Hero */
+
+    .hero {
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(25, 16, 66, 0.92), rgba(25, 16, 66, 0.42)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 720px;
+      padding: 90px 0;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 14px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      color: #ece9ff;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .search-box {
+      margin-top: 35px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr auto;
+      gap: 10px;
+      padding: 12px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box input,
+    .search-box select {
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .search-box input:focus,
+    .search-box select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Cards */
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .destination-card {
+      position: relative;
+      transition: 0.25s;
+    }
+
+    .destination-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .destination-image {
+      height: 220px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-body h3 {
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+    }
+
+    .card-body p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 15px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 15px;
+    }
+
+    .rating {
+      color: #d98b00;
+      font-weight: 700;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+
+    .category-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 22px 12px;
+      text-align: center;
+      transition: 0.25s;
+    }
+
+    .category-card:hover {
+      border-color: var(--primary);
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .category-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .category-card h4 {
+      font-size: 0.9rem;
+    }
+
+    /* Explore */
+
+    .explore-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: white;
+      outline: none;
+    }
+
+    .destination-count {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Planner */
+
+    .planner-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .planner-form,
+    .planner-result {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .planner-form h3,
+    .planner-result h3 {
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 15px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      background: white;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .interest-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .interest-list label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--secondary);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 45px 20px;
+      color: var(--muted);
+    }
+
+    .empty-state .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .itinerary-day {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .itinerary-day-header {
+      background: var(--secondary);
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .itinerary-day-body {
+      padding: 15px;
+    }
+
+    .activity {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity:last-child {
+      border-bottom: none;
+    }
+
+    .activity-time {
+      color: var(--primary);
+      font-weight: 700;
+      min-width: 70px;
+      font-size: 0.85rem;
+    }
+
+    .activity-details h4 {
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+
+    .activity-details p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Services */
+
+    .service-card {
+      padding: 22px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .service-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: var(--secondary);
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    /* Dashboard */
+
+    .dashboard {
+      background: #17122f;
+      color: white;
+    }
+
+    .dashboard .section-heading p {
+      color: #c9c3e9;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 22px;
+    }
+
+    .stat-card span {
+      color: #c9c3e9;
+      font-size: 0.85rem;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 2rem;
+      margin-top: 7px;
+    }
+
+    .dashboard-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .dashboard-panel {
+      background: white;
+      color: var(--text);
+      border-radius: 15px;
+      padding: 22px;
+    }
+
+    .dashboard-panel h3 {
+      margin-bottom: 15px;
+    }
+
+    .dashboard-list {
+      list-style: none;
+    }
+
+    .dashboard-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .dashboard-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* Reviews */
+
+    .review-card {
+      padding: 22px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .review-user {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--secondary);
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .review-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* CTA */
+
+    .cta {
+      background:
+        linear-gradient(110deg, rgba(63, 34, 166, 0.96), rgba(91, 53, 213, 0.88)),
+        url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+      color: white;
+      text-align: center;
+      border-radius: 25px;
+      padding: 65px 25px;
+    }
+
+    .cta h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #e9e5ff;
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    /* Footer */
+
+    footer {
+      background: #111827;
+      color: white;
+      padding: 55px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 35px;
+      margin-bottom: 35px;
+    }
+
+    footer h3,
+    footer h4 {
+      margin-bottom: 15px;
+    }
+
+    footer p,
+    footer a {
+      color: #b9c0ce;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 20px;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.85rem;
+    }
+
+    /* Modal */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: grid;
+      place-items: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: min(500px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 18px;
+      padding: 28px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--secondary);
+      color: var(--primary);
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 8px;
+    }
+
+    .modal-content > p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .modal-tabs button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      background: var(--secondary);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .modal-tabs button.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Toast */
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 3000;
+      background: #111827;
+      color: white;
+      padding: 15px 18px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      max-width: 340px;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 1000px) {
+      .nav-links {
+        gap: 12px;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .planner-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-content {
+        flex-wrap: wrap;
+        padding: 12px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 0;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-actions {
+        margin-left: auto;
+      }
+
+      .nav-actions .btn {
+        padding: 9px 12px;
+        font-size: 0.8rem;
+      }
+
+      .hero {
+        min-height: 680px;
+      }
+
+      .search-box {
+        grid-template-columns: 1fr;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .dashboard-panels {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 55px 0;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
+        gap: 9px;
+      }
+
+      .category-card {
+        padding: 16px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#home" class="logo">
+        <span class="logo-mark">✈</span>
+        <span>Vagabond Navigators</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#explore">Explore</a></li>
+        <li><a href="#planner">Trip Planner</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline btn-small" onclick="openAuthModal('login')">
+          Login
+        </button>
+        <button class="btn btn-primary btn-small" onclick="openAuthModal('signup')">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-tag">Smart. Affordable. Responsible Travel.</span>
+          <h1>Explore the world. Plan unforgettable journeys.</h1>
+          <p>
+            Discover destinations, create personalized itineraries, compare
+            prices, book local experiences, and travel confidently with
+            Vagabond Navigators.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#explore" class="btn btn-primary">Explore Destinations</a>
+            <a href="#planner" class="btn btn-light">Plan My Trip</a>
+          </div>
+
+          <form class="search-box" id="heroSearchForm">
+            <input
+              type="text"
+              id="heroSearch"
+              placeholder="Where do you want to go?"
+            />
+
+            <select id="heroTravelType">
+              <option value="">Travel type</option>
+              <option value="Solo">Solo</option>
+              <option value="Family">Family</option>
+              <option value="Student">Student</option>
+              <option value="Couple">Couple</option>
+              <option value="Group">Group</option>
+            </select>
+
+            <select id="heroBudget">
+              <option value="">Budget</option>
+              <option value="budget">Budget-friendly</option>
+              <option value="premium">Premium</option>
+            </select>
+
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Explore by Travel Interest</h2>
+          <p>
+            Find destinations that match your mood, interests, and travel
+            style.
+          </p>
+        </div>
+
+        <div class="category-grid">
+          <button class="category-card" onclick="filterCategory('Mountains')">
+            <div class="category-icon">🏔️</div>
+            <h4>Mountains</h4>
+          </button>
+
+          <button class="category-card" onclick="filterCategory('Beaches')">
+            <div class="category-icon">🏖️</div>
+            <h4>Beaches</h4>
+          </button>
+
+          <button class="category-card" onclick="filterCategory('Culture')">
+            <div class="category-icon">🏛️</div>
+            <h4>History & Culture</h4>
+          </button>
+
+          <button class="category-card" onclick="filterCategory('Adventure')">
+            <div class="category-icon">🧗</div>
+            <h4>Adventure</h4>
+          </button>
+
+          <button class="category-card" onclick="filterCategory('Spiritual')">
+            <div class="category-icon">🛕</div>
+            <h4>Spiritual</h4>
+          </button>
+
+          <button class="category-card" onclick="filterCategory('City')">
+            <div class="category-icon">🌆</div>
+            <h4>City Breaks</h4>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Explore Destinations -->
+    <section class="section" id="explore">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Discover Your Next Destination</h2>
+          <p>
+            Explore popular places, hidden gems, local experiences, and
+            budget-friendly journeys.
+          </p>
+        </div>
+
+        <div class="explore-toolbar">
+          <div class="filter-group">
+            <input
+              type="text"
+              id="destinationSearch"
+              placeholder="Search destinations..."
+            />
+
+            <select id="categoryFilter">
+              <option value="">All categories</option>
+              <option value="Mountains">Mountains</option>
+              <option value="Beaches">Beaches</option>
+              <option value="Culture">Culture</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Spiritual">Spiritual</option>
+              <option value="City">City</option>
+            </select>
+
+            <select id="budgetFilter">
+              <option value="">Any budget</option>
+              <option value="Budget">Budget-friendly</option>
+              <option value="Premium">Premium</option>
+            </select>
+          </div>
+
+          <span class="destination-count" id="destinationCount"></span>
+        </div>
+
+        <div class="cards-grid" id="destinationGrid"></div>
+      </div>
+    </section>
+
+    <!-- AI Planner -->
+    <section class="section" id="planner">
+      <div class="container">
+        <div class="section-heading">
+          <h2>AI-Powered Trip Planner</h2>
+          <p>
+            Tell us your preferences and receive a personalized day-by-day
+            travel plan.
+          </p>
+        </div>
+
+        <div class="planner-layout">
+          <form class="planner-form" id="plannerForm">
+            <h3>Customize Your Journey</h3>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="plannerDestination">Destination</label>
+                <input
+                  type="text"
+                  id="plannerDestination"
+                  placeholder="Example: Manali"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="plannerDuration">Duration</label>
+                <select id="plannerDuration">
+                  <option value="3">3 days</option>
+                  <option value="5">5 days</option>
+                  <option value="7">7 days</option>
+                  <option value="10">10 days</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="plannerBudget">Total Budget</label>
+                <input
+                  type="number"
+                  id="plannerBudget"
+                  placeholder="₹25,000"
+                  min="1000"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="plannerTravellers">Travellers</label>
+                <input
+                  type="number"
+                  id="plannerTravellers"
+                  value="2"
+                  min="1"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="plannerTravelType">Travel Type</label>
+                <select id="plannerTravelType">
+                  <option>Solo</option>
+                  <option>Family</option>
+                  <option>Student</option>
+                  <option>Couple</option>
+                  <option>Group</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="plannerAccommodation">Accommodation</label>
+                <select id="plannerAccommodation">
+                  <option>Budget stay</option>
+                  <option>Hostel</option>
+                  <option>Hotel</option>
+                  <option>Homestay</option>
+                  <option>Premium resort</option>
+                </select>
+              </div>
+
+              <div class="form-group full">
+                <label>Interests</label>
+                <div class="interest-list">
+                  <label><input type="checkbox" value="Nature" checked /> Nature</label>
+                  <label><input type="checkbox" value="Food" /> Food</label>
+                  <label><input type="checkbox" value="Adventure" /> Adventure</label>
+                  <label><input type="checkbox" value="Culture" /> Culture</label>
+                  <label><input type="checkbox" value="Shopping" /> Shopping</label>
+                  <label><input type="checkbox" value="Photography" /> Photography</label>
+                </div>
+              </div>
+
+              <div class="form-group full">
+                <label for="plannerPreferences">Additional Preferences</label>
+                <textarea
+                  id="plannerPreferences"
+                  placeholder="Tell us about your preferences..."
+                ></textarea>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+              Generate My Itinerary
+            </button>
+          </form>
+
+          <div class="planner-result" id="plannerResult">
+            <div class="empty-state">
+              <div class="empty-icon">🧭</div>
+              <h3>Your itinerary will appear here</h3>
+              <p>
+                Complete the form to generate a personalized travel plan with
+                activities, timings, and estimated costs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Everything You Need for Your Journey</h2>
+          <p>
+            One platform for discovering, planning, booking, and experiencing
+            travel.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="service-card">
+            <div class="service-icon">🏨</div>
+            <h3>Hotels & Stays</h3>
+            <p>
+              Compare hotels, hostels, homestays, and resorts according to
+              your budget.
+            </p>
+            <button class="btn btn-outline btn-small" onclick="showToast('Hotel search opened')">
+              Find a Stay
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">🍲</div>
+            <h3>Local Experiences</h3>
+            <p>
+              Discover authentic food, cultural activities, workshops, and
+              local attractions.
+            </p>
+            <button class="btn btn-outline btn-small" onclick="showToast('Local experiences opened')">
+              Explore Experiences
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">🧑‍🏫</div>
+            <h3>Local Guides</h3>
+            <p>
+              Connect with verified local guides who understand the destination
+              deeply.
+            </p>
+            <button class="btn btn-outline btn-small" onclick="showToast('Local guide search opened')">
+              Find a Guide
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">🚗</div>
+            <h3>Travel Agencies</h3>
+            <p>
+              Compare travel packages, transport options, and complete journey
+              services.
+            </p>
+            <button class="btn btn-outline btn-small" onclick="showToast('Travel agencies opened')">
+              View Agencies
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">💰</div>
+            <h3>Budget Calculator</h3>
+            <p>
+              Estimate transportation, accommodation, food, activities, and
+              emergency expenses.
+            </p>
+            <button class="btn btn-outline btn-small" onclick="openBudgetCalculator()">
+              Calculate Budget
+            </button>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">🆘</div>
+            <h3>Emergency Assistance</h3>
+            <p>
+              Access emergency contacts, safety information, and nearby support
+              services.
+            </p>
+            <button class="btn btn-danger btn-small" onclick="openEmergency()">
+              Emergency Help
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="section dashboard" id="dashboard">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Your Travel Dashboard</h2>
+          <p>
+            Manage saved trips, bookings, favourites, budgets, and business
+            listings from one place.
+          </p>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="stat-card">
+            <span>Saved Trips</span>
+            <strong id="savedTripsStat">4</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>Upcoming Bookings</span>
+            <strong>2</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>Favourite Places</span>
+            <strong id="favouritesStat">8</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>Travel Budget</span>
+            <strong>₹42K</strong>
+          </div>
+        </div>
+
+        <div class="dashboard-panels">
+          <div class="dashboard-panel">
+            <h3>Upcoming Trips</h3>
+            <ul class="dashboard-list">
+              <li>
+                <span>Manali Adventure</span>
+                <strong>Oct 12</strong>
+              </li>
+              <li>
+                <span>Jaipur Heritage Tour</span>
+                <strong>Nov 04</strong>
+              </li>
+              <li>
+                <span>Goa Beach Escape</span>
+                <strong>Dec 18</strong>
+              </li>
+            </ul>
+          </div>
+
+          <div class="dashboard-panel">
+            <h3>Business Dashboard</h3>
+            <ul class="dashboard-list">
+              <li>
+                <span>Active Listings</span>
+                <strong>12</strong>
+              </li>
+              <li>
+                <span>New Enquiries</span>
+                <strong>18</strong>
+              </li>
+              <li>
+                <span>Pending Bookings</span>
+                <strong>5</strong>
+              </li>
+            </ul>
+            <button
+              class="btn btn-primary btn-small"
+              onclick="showToast('Business dashboard opened')"
+            >
+              Manage Business
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>What Travellers Say</h2>
+          <p>
+            Real experiences from travellers using Vagabond Navigators.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="review-user">
+                <div class="avatar">A</div>
+                <div>
+                  <strong>Aarav Mehta</strong>
+                  <div class="rating">★★★★★</div>
+                </div>
+              </div>
+              <small>Student traveller</small>
+            </div>
+            <p>
+              The budget planner helped me create a practical trip without
+              exceeding my college travel budget.
+            </p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-top">
+              <div class="review-user">
+                <div class="avatar">S</div>
+                <div>
+                  <strong>Sneha Kapoor</strong>
+                  <div class="rating">★★★★★</div>
+                </div>
+              </div>
+              <small>Family traveller</small>
+            </div>
+            <p>
+              I could compare stays, restaurants, activities, and transport in
+              one place. The itinerary was very useful.
+            </p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-top">
+              <div class="review-user">
+                <div class="avatar">R</div>
+                <div>
+                  <strong>Rohan Singh</strong>
+                  <div class="rating">★★★★☆</div>
+                </div>
+              </div>
+              <small>Solo traveller</small>
+            </div>
+            <p>
+              The local experience recommendations made my trip more authentic
+              and helped me discover places beyond tourist crowds.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta">
+          <h2>Your next adventure starts here.</h2>
+          <p>
+            Explore destinations, plan smarter, support local businesses, and
+            travel responsibly with Vagabond Navigators.
+          </p>
+          <a href="#planner" class="btn btn-light">Start Planning</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Vagabond Navigators</h3>
+          <p>
+            A smart tourism platform connecting travellers, local businesses,
+            guides, agencies, and communities.
+          </p>
+        </div>
+
+        <div>
+          <h4>Platform</h4>
+          <a href="#explore">Explore Destinations</a>
+          <a href="#planner">AI Trip Planner</a>
+          <a href="#services">Travel Services</a>
+          <a href="#dashboard">Dashboard</a>
+        </div>
+
+        <div>
+          <h4>For Businesses</h4>
+          <a href="#" onclick="showToast('Business registration opened')">List Your Business</a>
+          <a href="#" onclick="showToast('Agency registration opened')">Register Agency</a>
+          <a href="#" onclick="showToast('Guide registration opened')">Become a Guide</a>
+          <a href="#" onclick="showToast('Partner enquiry opened')">Partner With Us</a>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <a href="mailto:hello@vagabondnavigators.com">hello@vagabondnavigators.com</a>
+          <a href="tel:+911234567890">+91 12345 67890</a>
+          <a href="#" onclick="showToast('Support centre opened')">Help Centre</a>
+          <a href="#" onclick="showToast('Privacy policy opened')">Privacy Policy</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 Vagabond Navigators. Built for smarter and responsible tourism.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Authentication Modal -->
+  <div class="modal hidden" id="authModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('authModal')">×</button>
+
+      <h2 id="authTitle">Welcome Back</h2>
+      <p id="authDescription">
+        Login to manage your trips, bookings, and saved destinations.
+      </p>
+
+      <div class="modal-tabs">
+        <button id="loginTab" class="active" onclick="switchAuth('login')">
+          Login
+        </button>
+        <button id="signupTab" onclick="switchAuth('signup')">
+          Sign Up
+        </button>
+      </div>
+
+      <form id="authForm">
+        <div class="form-group">
+          <label for="authName">Full Name</label>
+          <input type="text" id="authName" placeholder="Enter your name" />
+        </div>
+
+        <div class="form-group">
+          <label for="authEmail">Email Address</label>
+          <input
+            type="email"
+            id="authEmail"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="authPassword">Password</label>
+          <input
+            type="password"
+            id="authPassword"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <button class="btn btn-primary" type="submit" style="width: 100%">
+          Continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Budget Modal -->
+  <div class="modal hidden" id="budgetModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('budgetModal')">×</button>
+
+      <h2>Travel Budget Calculator</h2>
+      <p>Estimate your complete travel expenses.</p>
+
+      <form id="budgetForm">
+        <div class="form-group">
+          <label for="budgetTransport">Transportation</label>
+          <input type="number" id="budgetTransport" value="5000" min="0" />
+        </div>
+
+        <div class="form-group">
+          <label for="budgetStay">Accommodation</label>
+          <input type="number" id="budgetStay" value="8000" min="0" />
+        </div>
+
+        <div class="form-group">
+          <label for="budgetFood">Food</label>
+          <input type="number" id="budgetFood" value="4000" min="0" />
+        </div>
+
+        <div class="form-group">
+          <label for="budgetActivities">Activities</label>
+          <input type="number" id="budgetActivities" value="3000" min="0" />
+        </div>
+
+        <div class="form-group">
+          <label for="budgetEmergency">Emergency Reserve</label>
+          <input type="number" id="budgetEmergency" value="2000" min="0" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+          Calculate Total
+        </button>
+      </form>
+
+      <div id="budgetResult" class="hidden" style="margin-top: 20px">
+        <h3>Total Estimated Budget: <span id="totalBudget"></span></h3>
+        <p style="color: var(--muted); margin-top: 5px">
+          Keep an additional reserve for unexpected expenses.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emergency Modal -->
+  <div class="modal hidden" id="emergencyModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('emergencyModal')">×</button>
+
+      <h2>Emergency Assistance</h2>
+      <p>Use the following options during a travel emergency.</p>
+
+      <div class="service-card" style="margin-bottom: 12px">
+        <h3>🚓 Police</h3>
+        <p>For immediate safety and security assistance.</p>
+        <a href="tel:112" class="btn btn-danger btn-small">Call 112</a>
+      </div>
+
+      <div class="service-card" style="margin-bottom: 12px">
+        <h3>🚑 Ambulance</h3>
+        <p>For medical emergencies and urgent health support.</p>
+        <a href="tel:108" class="btn btn-danger btn-small">Call 108</a>
+      </div>
+
+      <div class="service-card">
+        <h3>🧭 Share Your Location</h3>
+        <p>Share your current location with a trusted contact.</p>
+        <button class="btn btn-primary btn-small" onclick="shareLocation()">
+          Share Location
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const destinations = [
+      {
+        name: "Manali",
+        state: "Himachal Pradesh",
+        category: "Mountains",
+        budget: "Budget",
+        price: "₹12,000",
+        rating: "4.8",
+        image:
+          "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=900&q=80",
+        description:
+          "Snow-covered mountains, peaceful valleys, cafés, and adventure activities."
+      },
+      {
+        name: "Goa",
+        state: "Goa",
+        category: "Beaches",
+        budget: "Budget",
+        price: "₹15,000",
+        rating: "4.7",
+        image:
+          "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80",
+        description:
+          "Relax on beautiful beaches and enjoy food, nightlife, and water sports."
+      },
+      {
+        name: "Jaipur",
+        state: "Rajasthan",
+        category: "Culture",
+        budget: "Budget",
+        price: "₹9,000",
+        rating: "4.6",
+        image:
+          "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80",
+        description:
+          "Discover royal palaces, forts, colourful markets, and local cuisine."
+      },
+      {
+        name: "Rishikesh",
+        state: "Uttarakhand",
+        category: "Adventure",
+        budget: "Budget",
+        price: "₹8,000",
+        rating: "4.8",
+        image:
+          "https://images.unsplash.com/photo-1597074866923-dc0589150358?auto=format&fit=crop&w=900&q=80",
+        description:
+          "Experience rafting, yoga, riverside cafés, and peaceful landscapes."
+      },
+      {
+        name: "Varanasi",
+        state: "Uttar Pradesh",
+        category: "Spiritual",
+        budget: "Budget",
+        price: "₹7,000",
+        rating: "4.7",
+        image:
+          "https://images.unsplash.com/photo-1561361058-c24cecae35ca?auto=format&fit=crop&w=900&q=80",
+        description:
+          "Explore ancient ghats, spiritual traditions, temples, and local culture."
+      },
+      {
+        name: "Mumbai",
+        state: "Maharashtra",
+        category: "City",
+        budget: "Premium",
+        price: "₹18,000",
+        rating: "4.5",
+        image:
+          "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=900&q=80",
+        description:
+          "Enjoy city life, iconic landmarks, shopping, food, and entertainment."
+      }
+    ];
+
+    const destinationGrid = document.getElementById("destinationGrid");
+    const destinationCount = document.getElementById("destinationCount");
+    const destinationSearch = document.getElementById("destinationSearch");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const budgetFilter = document.getElementById("budgetFilter");
+
+    function renderDestinations(list = destinations) {
+      destinationGrid.innerHTML = "";
+      destinationCount.textContent = `${list.length} destinations found`;
+
+      if (!list.length) {
+        destinationGrid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1">
+            <div class="empty-icon">🔍</div>
+            <h3>No destinations found</h3>
+            <p>Try changing your search or filters.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach((destination) => {
+        const card = document.createElement("article");
+        card.className = "card destination-card";
+
+        card.innerHTML = `
+          <img
+            class="destination-image"
+            src="${destination.image}"
+            alt="${destination.name}"
+          />
+
+          <div class="card-body">
+            <h3>${destination.name}</h3>
+            <p>${destination.description}</p>
+
+            <div class="card-meta">
+              <span>📍 ${destination.state}</span>
+              <span class="rating">★ ${destination.rating}</span>
+            </div>
+
+            <div class="card-meta">
+              <span>${destination.category}</span>
+              <strong>${destination.price}</strong>
+            </div>
+
+            <div class="card-actions">
+              <button
+                class="btn btn-primary btn-small"
+                onclick="viewDestination('${destination.name}')"
+              >
+                View Details
+              </button>
+
+              <button
+                class="btn btn-outline btn-small"
+                onclick="saveDestination('${destination.name}')"
+              >
+                ♡ Save
+              </button>
+            </div>
+          </div>
+        `;
+
+        destinationGrid.appendChild(card);
+      });
+    }
+
+    function applyFilters() {
+      const search = destinationSearch.value.toLowerCase().trim();
+      const category = categoryFilter.value;
+      const budget = budgetFilter.value;
+
+      const filtered = destinations.filter((destination) => {
+        const matchesSearch =
+          destination.name.toLowerCase().includes(search) ||
+          destination.state.toLowerCase().includes(search) ||
+          destination.description.toLowerCase().includes(search);
+
+        const matchesCategory =
+          !category || destination.category === category;
+
+        const matchesBudget =
+          !budget || destination.budget === budget;
+
+        return matchesSearch && matchesCategory && matchesBudget;
+      });
+
+      renderDestinations(filtered);
+    }
+
+    destinationSearch.addEventListener("input", applyFilters);
+    categoryFilter.addEventListener("change", applyFilters);
+    budgetFilter.addEventListener("change", applyFilters);
+
+    function filterCategory(category) {
+      categoryFilter.value = category;
+      applyFilters();
+      document.getElementById("explore").scrollIntoView();
+    }
+
+    function viewDestination(name) {
+      const destination = destinations.find((item) => item.name === name);
+
+      document.getElementById("plannerDestination").value = name;
+      showToast(`${name} selected. You can now create an itinerary.`);
+      document.getElementById("planner").scrollIntoView();
+    }
+
+    function saveDestination(name) {
+      const saved = Number(localStorage.getItem("savedDestinations") || 0);
+      localStorage.setItem("savedDestinations", saved + 1);
+
+      document.getElementById("favouritesStat").textContent = 8 + saved + 1;
+      showToast(`${name} added to your favourites.`);
+    }
+
+    document
+      .getElementById("heroSearchForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const query = document.getElementById("heroSearch").value;
+        destinationSearch.value = query;
+        applyFilters();
+
+        document.getElementById("explore").scrollIntoView();
+      });
+
+    /* Planner */
+
+    document
+      .getElementById("plannerForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const destination =
+          document.getElementById("plannerDestination").value;
+        const duration = Number(
+          document.getElementById("plannerDuration").value
+        );
+        const budget = Number(
+          document.getElementById("plannerBudget").value
+        );
+        const travellers = Number(
+          document.getElementById("plannerTravellers").value
+        );
+        const travelType = document.getElementById("plannerTravelType").value;
+        const accommodation = document.getElementById(
+          "plannerAccommodation"
+        ).value;
+
+        const interests = Array.from(
+          document.querySelectorAll(".interest-list input:checked")
+        ).map((checkbox) => checkbox.value);
+
+        const plannerResult = document.getElementById("plannerResult");
+
+        const activities = [
+          {
+            time: "08:00 AM",
+            title: "Breakfast and local orientation",
+            description: `Start your day with a local breakfast in ${destination}.`
+          },
+          {
+            time: "10:00 AM",
+            title: "Explore major attractions",
+            description: `Visit the most popular attractions and scenic points of ${destination}.`
+          },
+          {
+            time: "01:00 PM",
+            title: "Local lunch experience",
+            description: `Enjoy regional food and discover local flavours.`
+          },
+          {
+            time: "03:00 PM",
+            title: interests.includes("Adventure")
+              ? "Adventure activity"
+              : "Cultural and local experience",
+            description: interests.includes("Adventure")
+              ? "Enjoy a safe, budget-conscious adventure activity."
+              : "Interact with local communities and explore the culture."
+          },
+          {
+            time: "07:00 PM",
+            title: "Sunset and free time",
+            description: "Relax, shop locally, and enjoy the evening."
+          }
+        ];
+
+        let itineraryHTML = `
+          <h3>Your Personalized Itinerary</h3>
+          <p style="color: var(--muted); margin-bottom: 18px;">
+            ${destination} · ${duration} days · ${travellers} traveller(s) ·
+            ${travelType} · ${accommodation}
+          </p>
+        `;
+
+        for (let day = 1; day <= duration; day++) {
+          itineraryHTML += `
+            <div class="itinerary-day">
+              <div class="itinerary-day-header">
+                <strong>Day ${day}: ${destination}</strong>
+                <span>₹${Math.round(budget / duration).toLocaleString()}</span>
+              </div>
+
+              <div class="itinerary-day-body">
+                ${activities
+                  .map(
+                    (activity) => `
+                    <div class="activity">
+                      <div class="activity-time">${activity.time}</div>
+                      <div class="activity-details">
+                        <h4>${activity.title}</h4>
+                        <p>${activity.description}</p>
+                      </div>
+                    </div>
+                  `
+                  )
+                  .join("")}
+              </div>
+            </div>
+          `;
+        }
+
+        itineraryHTML += `
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+            <button class="btn btn-primary btn-small" onclick="saveItinerary()">
+              Save Itinerary
+            </button>
+            <button class="btn btn-outline btn-small" onclick="shareItinerary()">
+              Share Itinerary
+            </button>
+            <button class="btn btn-outline btn-small" onclick="window.print()">
+              Print Itinerary
+            </button>
+          </div>
+        `;
+
+        plannerResult.innerHTML = itineraryHTML;
+        showToast("Your personalized itinerary has been generated.");
+      });
+
+    function saveItinerary() {
+      const current = Number(localStorage.getItem("savedTrips") || 4);
+      localStorage.setItem("savedTrips", current + 1);
+      document.getElementById("savedTripsStat").textContent = current + 1;
+      showToast("Itinerary saved to your dashboard.");
+    }
+
+    function shareItinerary() {
+      if (navigator.share) {
+        navigator.share({
+          title: "My Vagabond Navigators Itinerary",
+          text: "Check out my personalized travel itinerary."
+        });
+      } else {
+        showToast("Sharing is not supported in this browser.");
+      }
+    }
+
+    /* Authentication */
+
+    function openAuthModal(type) {
+      document.getElementById("authModal").classList.remove("hidden");
+      switchAuth(type);
+    }
+
+    function switchAuth(type) {
+      const isLogin = type === "login";
+
+      document.getElementById("authTitle").textContent = isLogin
+        ? "Welcome Back"
+        : "Create Your Account";
+
+      document.getElementById("authDescription").textContent = isLogin
+        ? "Login to manage your trips, bookings, and saved destinations."
+        : "Join Vagabond Navigators and start planning smarter journeys.";
+
+      document.getElementById("authName").parentElement.classList.toggle(
+        "hidden",
+        isLogin
+      );
+
+      document.getElementById("loginTab").classList.toggle("active", isLogin);
+      document.getElementById("signupTab").classList.toggle("active", !isLogin);
+    }
+
+    document
+      .getElementById("authForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+        closeModal("authModal");
+        showToast("Authentication successful in demo mode.");
+      });
+
+    /* Budget Calculator */
+
+    function openBudgetCalculator() {
+      document.getElementById("budgetModal").classList.remove("hidden");
+    }
+
+    document
+      .getElementById("budgetForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const values = [
+          "budgetTransport",
+          "budgetStay",
+          "budgetFood",
+          "budgetActivities",
+          "budgetEmergency"
+        ].map((id) => Number(document.getElementById(id).value) || 0);
+
+        const total = values.reduce((sum, value) => sum + value, 0);
+
+        document.getElementById("totalBudget").textContent =
+          "₹" + total.toLocaleString();
+
+        document.getElementById("budgetResult").classList.remove("hidden");
+      });
+
+    /* Emergency */
+
+    function openEmergency() {
+      document.getElementById("emergencyModal").classList.remove("hidden");
+    }
+
+    function shareLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            const locationText = `My current location: ${latitude}, ${longitude}`;
+
+            if (navigator.share) {
+              navigator.share({
+                title: "Emergency Location",
+                text: locationText
+              });
+            } else {
+              showToast(locationText);
+            }
+          },
+          () => {
+            showToast("Unable to access your location.");
+          }
+        );
+      } else {
+        showToast("Location services are not supported.");
+      }
+    }
+
+    /* Common utilities */
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add("hidden");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+    document.querySelectorAll(".modal").forEach((modal) => {
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          modal.classList.add("hidden");
+        }
+      });
+    });
+
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("navLinks").classList.toggle("open");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.getElementById("navLinks").classList.remove("open");
+      });
+    });
+
+    renderDestinations();
+  </script>
+</body>
+</html>
